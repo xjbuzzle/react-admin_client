@@ -5,7 +5,7 @@ import memoryUtils from '../../utils/memoryUtils';
 import LeftNav from '../../components/left-nav';
 import Header from '../../components/header';
 //引入子路由
-import home from '../home/home';
+import Home from '../home/home';
 import Category from '../category/category';
 import Product from '../product/product';
 import Role from '../role/role';

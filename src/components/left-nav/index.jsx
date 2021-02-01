@@ -20,6 +20,7 @@ import {
 
 import './index.less';
 import logo from '../../assets/images/logo.png';
+import menuList from '../../config/menuConfig';
 
 
 const { SubMenu } = Menu;
@@ -34,6 +35,34 @@ export default class LeftNav extends Component{
             collapsed: !this.state.collapsed,
         });
     };
+
+    /*
+    * 根据menu的数据数组生成对应的标签数组
+    * 使用map()+递归调用
+    * */
+    getMenuNodes = (menuList) =>{
+        return menuList.map(item=>{
+            if(!item.children){
+                return(
+                    <Menu.Item key={item.key} icon={item.icon}>
+                        <Link to={item.key}>
+                            {item.title}
+                        </Link>
+                    </Menu.Item>
+                );
+            }else{
+                return(
+                    <SubMenu key={item.key} icon={item.icon} title={item.title}>
+                        {
+                            //利用递归去生成内部的menuitem
+                            this.getMenuNodes(item.children)
+                        }
+                    </SubMenu>
+                );
+            }
+        })
+    }
+
     render(){
         return(
             <div className='left-nav'>
@@ -48,15 +77,39 @@ export default class LeftNav extends Component{
                     theme="dark"
                     inlineCollapsed={this.state.collapsed}
                 >
-                    <Menu.Item key="1" icon={<HomeOutlined />}>
-                        首页
+                    {/*
+                    <Menu.Item key="/home" icon={<HomeOutlined />}>
+                        <Link to='/home'>
+                            首页
+                        </Link>
                     </Menu.Item>
                     <SubMenu key="sub2" icon={<AppstoreOutlined />} title="商品">
-                        <Menu.Item key="2" icon={<BarsOutlined />}>品类管理</Menu.Item>
-                        <Menu.Item key="3" icon={<ToolOutlined />}>商品管理</Menu.Item>
+                        <Menu.Item key="/category" icon={<BarsOutlined />}>
+                            <Link to='/category'>
+                                品类管理
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="/product" icon={<ToolOutlined />}>
+                            <Link to='/product'>
+                                商品管理
+                            </Link>
+                        </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key="4" icon={<UserOutlined />}>用户管理</Menu.Item>
-                    <Menu.Item key="5" icon={<TeamOutlined />}>角色管理</Menu.Item>
+                    <Menu.Item key="/user" icon={<UserOutlined />}>
+                        <Link to='/user'>
+                            用户管理
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="/role" icon={<TeamOutlined />}>
+                        <Link to='/role'>
+                            角色管理
+                        </Link>
+                    </Menu.Item>*/}
+
+                    {
+                        //获取菜单节点,用map循环或是reduce方法来生成Menu.Item或是SubMenu,返回值是个数组
+                        this.getMenuNodes(menuList)
+                    }
                 </Menu>
             </div>
         )
