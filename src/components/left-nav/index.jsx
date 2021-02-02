@@ -40,7 +40,7 @@ export default class LeftNav extends Component{
     * 根据menu的数据数组生成对应的标签数组
     * 使用map()+递归调用
     * */
-    getMenuNodes = (menuList) =>{
+    getMenuNodes_map = (menuList) =>{
         return menuList.map(item=>{
             if(!item.children){
                 return(
@@ -55,12 +55,43 @@ export default class LeftNav extends Component{
                     <SubMenu key={item.key} icon={item.icon} title={item.title}>
                         {
                             //利用递归去生成内部的menuitem
-                            this.getMenuNodes(item.children)
+                            this.getMenuNodes_map(item.children)
                         }
                     </SubMenu>
                 );
             }
         })
+    }
+
+    /*
+    * 根据menu的数据数组生成对应的标签数组
+    * 使用reduce()+递归调用
+    * reduce:用来做累计累加的
+    * pre是上一次统计的结果，第一次pre是[],第二次还是这个数组，只是可能多了个元素
+    * 第二个参数是默认的空数组，用于插入标签数据
+    * */
+    getMenuNodes = (menuList) =>{
+        return menuList.reduce((pre,item)=>{
+            if(!item.children){
+                pre.push((
+                    <Menu.Item key={item.key} icon={item.icon}>
+                        <Link to={item.key}>
+                            {item.title}
+                        </Link>
+                    </Menu.Item>
+                ));
+            }else{
+                pre.push((
+                    <SubMenu key={item.key} icon={item.icon} title={item.title}>
+                        {
+                            //利用递归去生成内部的menuitem
+                            this.getMenuNodes(item.children)
+                        }
+                    </SubMenu>
+                ));
+            }
+            return pre;
+        },[]);
     }
 
     render(){
