@@ -3,20 +3,8 @@
 * */
 
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,withRouter} from 'react-router-dom';
 import { Menu } from 'antd';
-import {
-    AppstoreOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    HomeOutlined,
-    BarsOutlined,
-    TeamOutlined,
-    ContainerOutlined,
-    MailOutlined,
-    UserOutlined,
-    ToolOutlined
-} from '@ant-design/icons';
 
 import './index.less';
 import logo from '../../assets/images/logo.png';
@@ -25,7 +13,7 @@ import menuList from '../../config/menuConfig';
 
 const { SubMenu } = Menu;
 
-export default class LeftNav extends Component{
+ class LeftNav extends Component{
     state = {
         collapsed: false,
     };
@@ -95,6 +83,13 @@ export default class LeftNav extends Component{
     }
 
     render(){
+        /*
+        * 得到当前请求的路由路径
+        * 不是路由组件但是想要得到路由组件拥有的三个属性:
+        * 引入react-router-dom的withRouter
+        * */
+        const path = this.props.location.pathname || '/home';
+
         return(
             <div className='left-nav'>
                 <Link to='/' className='left-nav-header'>
@@ -102,40 +97,16 @@ export default class LeftNav extends Component{
                     <h1>硅谷后台</h1>
                 </Link>
                 <Menu
-                    defaultSelectedKeys={['1']}//默认选中第一个
+                    // defaultSelectedKeys={[path]}
+                    //打印path可以看到，第一次是/，第二次是/home
+                    // 默认第一次选中的,导致直接是3000的路径会去到path为/，
+                    // 而后重定向为/home,但是已经不能再给该属性赋值了，智能赋值一次，所以改用selectedKeys
+                    selectedKeys={[path]}//换成selectedKeys就不止可以定义一次了
                     defaultOpenKeys={['sub1']}
                     mode="inline"
                     theme="dark"
                     inlineCollapsed={this.state.collapsed}
                 >
-                    {/*
-                    <Menu.Item key="/home" icon={<HomeOutlined />}>
-                        <Link to='/home'>
-                            首页
-                        </Link>
-                    </Menu.Item>
-                    <SubMenu key="sub2" icon={<AppstoreOutlined />} title="商品">
-                        <Menu.Item key="/category" icon={<BarsOutlined />}>
-                            <Link to='/category'>
-                                品类管理
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="/product" icon={<ToolOutlined />}>
-                            <Link to='/product'>
-                                商品管理
-                            </Link>
-                        </Menu.Item>
-                    </SubMenu>
-                    <Menu.Item key="/user" icon={<UserOutlined />}>
-                        <Link to='/user'>
-                            用户管理
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="/role" icon={<TeamOutlined />}>
-                        <Link to='/role'>
-                            角色管理
-                        </Link>
-                    </Menu.Item>*/}
 
                     {
                         //获取菜单节点,用map循环或是reduce方法来生成Menu.Item或是SubMenu,返回值是个数组
@@ -146,3 +117,11 @@ export default class LeftNav extends Component{
         )
     }
 }
+
+/*
+* widthRouter高阶组件：
+* 包装非路由组件，返回一个新组件
+* 新组件向非路由组件传递3个属性：
+* history、location、match
+* */
+export default withRouter(LeftNav);
