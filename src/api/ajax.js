@@ -11,18 +11,18 @@
 import axios from 'axios';
 import {message} from 'antd';
 //因为每一个ajax请求都是在这里发的，所以可以在这里处理每一个ajax请求的错误提示
-export default function ajax(url,data={},type='GET'){
+export default function ajax(url, data={}, type='GET'){
 
     //外面套一层promise这样就可以用.then()
     //(resolve,reject)=>{
     //
     //     }称为执行器函数
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         //1.执行异步ajax请求
         let promise;
         //get和post都会产生promise对象，所以直接用promise去接收
         if(type==='GET'){
-            promise = axios.get(url,{
+            promise = axios.get(url, {
                 params:{//配置对象
                     ID:data
                 }
@@ -31,12 +31,12 @@ export default function ajax(url,data={},type='GET'){
             //前面用的axios的promise:
             //return axios.post(url,data);
             //后面自己去new了一个promise
-            promise = axios.post(url,data);
+            promise = axios.post(url, data);
         }
-        promise.then(response=>{
+        promise.then((response) => {
             //2.如果成功了，调用resolve(value),传入response
             resolve(response.data);
-        }).catch(error=>{
+        }).catch((error) => {
             //3.如果失败了，不调用reject(reason),如果这样调用reject会进入到catch的流程里面,而我们要统一处理请求异常
             //而是提示异常信息
             message.error('请求出错：'+error.message);

@@ -14,9 +14,9 @@ import ajax from './ajax';
 // const BASE='http://120.55.193.14:5000';
 //因为不确定运行起来是3000还是3001，所以直接写空串，因为在package.json配置过代理服务器了，所以可行
 const BASE='';
-export const reqLogin=(username,password)=>ajax(BASE+'/login',{username,password},'/POST');
+export const reqLogin=(username, password) => ajax(BASE+'/login', {username, password}, '/POST');
 
 //添加用户
-export const reqAddUser=(user)=>ajax(BASE+'/manage/user/add',user,'POST');
+export const reqAddUser=(user) => ajax(BASE+'/manage/user/add', user, 'POST');
 
 

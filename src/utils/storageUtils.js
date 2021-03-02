@@ -8,10 +8,10 @@ export default {
     * 保存user
     * */
     saveUser(user){
-       // localStorage.setItem('user_key',user) 不能直接存user对象，这边接收的是一个字符串，这样会把user.toString，变成[Object Object]
-       //转成json格式的字符串
-       //  localStorage.setItem(USER_KEY,JSON.stringify(user));
-        store.set(USER_KEY,user);
+        // localStorage.setItem('user_key',user) 不能直接存user对象，这边接收的是一个字符串，这样会把user.toString，变成[Object Object]
+        //转成json格式的字符串
+        //  localStorage.setItem(USER_KEY,JSON.stringify(user));
+        store.set(USER_KEY, user);
     },
     /*
     * 读取user

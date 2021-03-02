@@ -2,8 +2,8 @@
 * 左侧导航的组件
 * */
 
-import React,{Component} from 'react';
-import {Link,withRouter} from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import { Menu } from 'antd';
 
 import './index.less';
@@ -13,14 +13,14 @@ import menuList from '../../config/menuConfig';
 
 const { SubMenu } = Menu;
 
- class LeftNav extends Component{
+class LeftNav extends Component{
     state = {
-        collapsed: false,
+        collapsed: false
     };
 
     toggleCollapsed = () => {
         this.setState({
-            collapsed: !this.state.collapsed,
+            collapsed: !this.state.collapsed
         });
     };
 
@@ -28,14 +28,14 @@ const { SubMenu } = Menu;
     * 根据menu的数据数组生成对应的标签数组
     * 使用map()+递归调用
     * */
-    getMenuNodes_map = (menuList) =>{
+    getMenuNodes_map = (menuList) => {
         /*
         * 得到当前请求的路由路径
         * 不是路由组件但是想要得到路由组件拥有的三个属性:
         * 引入react-router-dom的withRouter
         * */
         const path = this.props.location.pathname;
-        return menuList.map(item=>{
+        return menuList.map((item) => {
             if(!item.children){
                 return(
                     <Menu.Item key={item.key} icon={item.icon}>
@@ -48,7 +48,7 @@ const { SubMenu } = Menu;
                 /*
                * 查找一个与当前请求路径匹配的子item
                * */
-                const cItem = item.children.find(cItem => cItem.key===path);
+                const cItem = item.children.find((cItem) => cItem.key===path);
                 //如果存在说明当前item所对应子列表需要展开
                 // console.log(this);//this是LeftNav
                 if(cItem){
@@ -73,14 +73,14 @@ const { SubMenu } = Menu;
     * pre是上一次统计的结果，第一次pre是[],第二次还是这个数组，只是可能多了个元素
     * 第二个参数是默认的空数组，用于插入标签数据
     * */
-    getMenuNodes = (menuList) =>{
+    getMenuNodes = (menuList) => {
         /*
         * 得到当前请求的路由路径
         * 不是路由组件但是想要得到路由组件拥有的三个属性:
         * 引入react-router-dom的withRouter
         * */
         const path = this.props.location.pathname;
-        return menuList.reduce((pre,item)=>{
+        return menuList.reduce((pre, item) => {
             if(!item.children){
                 pre.push((
                     <Menu.Item key={item.key} icon={item.icon}>
@@ -93,7 +93,7 @@ const { SubMenu } = Menu;
                 /*
                 * 查找一个与当前请求路径匹配的子item
                 * */
-                const cItem = item.children.find(cItem => cItem.key===path);
+                const cItem = item.children.find((cItem) => cItem.key===path);
                 //如果存在说明当前item所对应子列表需要展开
                 // console.log(this);//this是LeftNav
                 if(cItem){
@@ -110,7 +110,7 @@ const { SubMenu } = Menu;
                 ));
             }
             return pre;
-        },[]);
+        }, []);
     }
 
     /*
@@ -123,7 +123,7 @@ const { SubMenu } = Menu;
         this.menuNodes = this.getMenuNodes(menuList);
     }
 
-     render(){
+    render(){
         // debugger
         /*
         * 得到当前请求的路由路径
@@ -134,9 +134,9 @@ const { SubMenu } = Menu;
         const openKey = this.openKey;
 
         return(
-            <div className='left-nav'>
-                <Link to='/' className='left-nav-header'>
-                    <img src={logo} alt='logo'/>
+            <div className="left-nav">
+                <Link to="/" className="left-nav-header">
+                    <img src={logo} alt="logo"/>
                     <h1>硅谷后台</h1>
                 </Link>
                 <Menu

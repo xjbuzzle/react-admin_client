@@ -1,11 +1,11 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {Redirect} from 'react-router-dom';
 import './login.less';
 import logo from '../../assets/images/logo.png';
-import {reqLogin} from "../../api";
-import {message} from "antd/es";
+import {reqLogin} from '../../api';
+import {message} from 'antd/es';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 
@@ -26,7 +26,7 @@ export default class Login extends Component{
         //判断用户是否登录，如果登录了就直接跳转到后台页面
         const user = memoryUtils.user;
         if(user._id){
-            return <Redirect to='/'/>;
+            return <Redirect to="/"/>;
         }
 
         //新组件传递给Form组件->强大的form对象
@@ -105,10 +105,10 @@ export default class Login extends Component{
                             //声明式验证:直接使用别人定义好的验证规则进行验证
                             rules={[
                                 { required: true, whitespace:true, message: '用户名必须输入' },
-                                { min:4,message:'用户名不能少于4位'},
-                                { max:12,message:'用户名不能大于12位'},
-                                { pattern:/^[a-zA-Z0-9_]+$/,message:'用户名必须是英文、数字或下划线组成'}
-                                ]}
+                                { min:4, message:'用户名不能少于4位'},
+                                { max:12, message:'用户名不能大于12位'},
+                                { pattern:/^[a-zA-Z0-9_]+$/, message:'用户名必须是英文、数字或下划线组成'}
+                            ]}
                             validateStatus
                         >
                             <Input prefix={<UserOutlined className="site-form-item-icon" style={{color:'rgba(0,0,0,.25)'}} />} placeholder="Username" />
@@ -119,7 +119,7 @@ export default class Login extends Component{
                             validateStatus
                             rules={[
                                 {
-                                    validator:async(rule, value)=>{
+                                    validator:async(rule, value) => {
                                         //value ? Promise.resolve():Promise.reject('should accept agreement')
                                         if(!value){
                                             Promise.reject('请输入密码');
@@ -133,7 +133,7 @@ export default class Login extends Component{
                                             Promise.resolve();
                                         }
                                     }
-                                },
+                                }
                             ]}
                         >
                             <Input
