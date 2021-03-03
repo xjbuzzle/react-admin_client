@@ -1,4 +1,62 @@
 .header{
-  color:#999;
   height: 80px;
+  background-color: #fff;
+  font-size:14px;
+  .header-top{
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    margin-right: 20px;
+    border-bottom: 1px solid #618C81;
+    span{
+      margin-right:10px;
+      justify-content: center;
+    }
+  }
+  .header-bottom{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    .header-bottom-left{
+      position: relative;
+      font-size:20px;
+      width:25%;
+      text-align: center;
+      &::after{
+        content:'';
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border:20px solid transparent;
+        border-bottom: none;
+        border-top-color: white;
+
+      }
+    }
+    .header-bottom-right{
+      width:75%;
+      text-align: right;
+      margin-right: 20px;
+      img{
+        margin:0 10px;
+      }
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

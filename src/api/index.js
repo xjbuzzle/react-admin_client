@@ -5,6 +5,7 @@
 * 能根据接口文档定义接口请求函数
 * */
 import ajax from './ajax';
+import {message} from 'antd';
 //登录
 // export function reqLogin() {
 //     ajax('/login',{username,password}){
@@ -19,4 +20,22 @@ export const reqLogin=(username, password) => ajax(BASE+'/login', {username, pas
 //添加用户
 export const reqAddUser=(user) => ajax(BASE+'/manage/user/add', user, 'POST');
 
+/*
+* jsonp请求的接口请求函数
+* */
+export const reqWeather = (city_id) =>
+    //返回一个promise对象
+    new Promise((resolve, reject) => {
+        const url = 'http://api.map.baidu.com/weather/v1/?district_id='+ {city_id} + '&data_type=all&ak=fNu7l7D4t5xbtaeO6fgp7812AafD53tK';
+        jsonp(url, {}, (err, data) => {
+            if(!err && data.status===0){
+                const text = data.result.now.text;
+                resolve(text);
+            }else{
+                //失败了
+                message.error('请求数据失败');
+            }
+        })
+    })
+// reqWeather(350100)
 
