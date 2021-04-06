@@ -1,3 +1,5 @@
+React学习过程中的实践项目，不定期更新~
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
